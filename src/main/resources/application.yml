@@ -1,0 +1,122 @@
+server:
+  port: 8087
+
+#spring:
+#  application:
+#    name: refund-server
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    hikari:
+#      maximum-pool-size: 20
+#    password: meifute@123
+#    url: jdbc:mysql://172.19.95.132:3332/m_mall_user?useSSL=false&useUnicode=true&characterEncoding=utf-8
+#    username: dev_client_001
+
+
+#
+#mybatis:
+#  type-aliases-package: com.example.demo.entity
+#  mapper-locations: classpath:com/example/demo/mapper/*Mapper.xml
+
+
+spring:
+  application:
+    name: refund-server
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    hikari:
+      maximum-pool-size: 20
+#    password: meifute@0103X@
+#    url: jdbc:mysql://172.20.4.119:33060/m_mall_pay?useSSL=false&useUnicode=true&characterEncoding=utf-8
+#    username: mall_prod_1
+    url: jdbc:mysql://172.19.95.132:3332/m_mall_user?useSSL=false&useUnicode=true&characterEncoding=utf-8
+    username: dev_client_001
+    password: meifute@123
+##生产
+  redis:
+    host: r-uf6fl4ygwxyyuvq117.redis.rds.aliyuncs.com
+    port: 6379
+    password: meifute@1812
+#测试
+#  redis:
+#    host: 172.19.95.132
+#    port: 3334
+#    password: meifute@123
+#txmanger
+#  redis:
+#    host: r-uf60c67ytoyzttadg7.redis.rds.aliyuncs.com
+#    port: 6379
+#    password: meifute@1812
+
+#    timeout: 0
+#    jedis:
+#      pool:
+#        max-active: 8
+#        max-wait: -1
+#        max-idle: 8
+#        min-idle: 0
+
+logging:
+  level:
+    root: info
+
+#mybatis-plus:
+#  mapper-locations: classpath:com/example/demo/mapper/*Mapper.xml
+#  type-aliases-package: com.example.demo.entity
+
+#aliyun MQ config
+ali-onsAddr: http://onsaddr-internet.aliyun.com/rocketmq/nsaddr4client-internet
+ali-onsAddr1: http://MQ_INST_1799133008466795_BaIBPC9M.cn-shanghai.mq-internal.aliyuncs.com:8080
+ali-sendMsgTimeoutMillis: 3000
+ali-suspendTimeMillis: 100
+ali-maxReconsumeTimes: 20
+
+#30分钟未支付
+ali-30m-producerId: PID-TEST-30M-ORDER
+ali-30m-consumerId: CID-TEST-30M-ORDER
+ali-30m-tag: test-30m
+ali-30m-topic: TEST-30M-ORDER
+#京东推单
+ali-jd-producerId: PID-TEST-JD-PUSH
+ali-jd-consumerId: CID-TEST-JD-PUSH
+ali-jd-tag: test-jd-push
+ali-jd-topic: TEST-JD-PUSH
+#3天审核
+ali-verify-producerId: PID-TEST-VERIFY-ORDER
+ali-verify-consumerId: CID-TEST-VERIFY-ORDER
+ali-verify-tag: test-verify
+ali-verify-topic: TEST-VERIFY-ORDER
+#7天自动收货
+ali-7days-producerId: PID-TEST-7DAYS-ORDER
+ali-7days-consumerId: CID-TEST-7DAYS-ORDER
+ali-7days-tag: test-7days
+ali-7days-topic: TEST-7DAYS-ORDER
+#团队关系链/agent/team/message
+agent-team-producerId: GID-P-AGENT
+agent-team-consumerId: GID-C-AGENT
+agent-team-tag: test-team
+agent-team-topic: TEST-AGENT-TEAM
+#团队树
+agent-tree-producerId: GID-P-TREE-TEST
+agent-tree-consumerId: GID-C-TREE-TEST
+agent-tree-tag: agent-tree-test
+agent-tree-topic: TEST-AGENT-TREE
+
+agent-add1: http://47.101.196.163:8022
+agent-add2: http://47.101.196.163:8022
+
+
+bucket_name: dev-m-bucket
+oss_access_key_id: LTAI04U4mhyN0B9I
+oss_access_key_secret: xiHsFDklEInDIpUNxCy5o2tESvXkRt
+
+task-url: http://172.19.116.103:8029
+
+mq_access_key_id: LTAIfmKS6CQ9c6pM
+mq_access_key_secret: yKJTHm48Hoda8tdBlcdXdhNjzaOHWe
+
+
+
+redisson:
+  address: redis://172.19.95.132:3334
+  password: meifute@123

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.MallUserMapper">
+
+
+    <select id="getAddress" resultType="com.example.demo.entity.MallUserAddress">
+        <!--         select id, area, full_address as fullAddress from mall_user_address where area not like '% %' order by create_date desc
+                     select id, area, full_address as fullAddress from mall_user_address where (LENGTH(area) - LENGTH( REPLACE (area, ' ', ''))) = 1 -->
+
+        select t1.id, t1.area, t1.full_address as fullAddress, t1.provice from mall_user_address t1, (select id, provice
+        from mall_user_address where is_del = 0) t2
+        where
+        t1.id = t2.id
+        and t1.area not like CONCAT('%',t2.provice,'%')
+        and t1.is_del = 0
+    </select>
+
+    <update id="updateAddress" parameterType="com.example.demo.entity.MallUserAddress">
+        update mall_user_address set provice = #{provice} where id = #{id}
+    </update>
+
+    <select id="getPayTypeConfig" parameterType="string" resultType="com.example.demo.entity.MallPayType">
+         select app_id appId, app_secret appSecret, mch_id mchId,`key`,`type`,`status`
+          from m_mall_agent.mall_pay_type
+         where company_id = #{companyId} and is_del = '0' and status = '0'
+    </select>
+
+    <select id="getAcOrder" resultType="com.example.demo.entity.MallAcOrder">
+        select id, user_id userId from m_mall_item.mall_ac_order where order_status = 6
+        and create_time BETWEEN '2019-11-11 11:00:00' and '2019-11-11 12:50:00'
+    </select>
+
+    <select id="getCompanyIdByUserId" resultType="string">
+        select company_id from m_mall_agent.mall_agent where user_id = #{userId}
+    </select>
+
+    <select id="getAcOrders" resultType="com.example.demo.entity.MallAcOrder">
+        select t1.id, t1.user_id userId, t2.`phone`, t2.`name` from m_mall_item.mall_ac_order t1, mall_user t2
+         where
+           t1.user_id = t2.id
+         and order_status = '6'
+         and t2.phone in (
+           15921563904,
+18951830732,
+13180069879,
+13512992585,
+18260170505,
+15707682993,
+18500590413,
+15189527246,
+13596654777,
+18174672136,
+13814824109,
+13936422573,
+15179519115,
+18676992379,
+15884844680,
+18543076620,
+15985169320,
+13065840015,
+18260776693,
+13696171418,
+18920236781,
+18121519513,
+17692285237,
+15384074607,
+13819213001,
+17358051503,
+17692285237,
+13895655485,
+13012224245,
+15083951558,
+15529300329,
+13485098553,
+15180806538,
+18642166811,
+13770066059,
+18030826210,
+15896348035,
+15808321703,
+13625886976,
+18712480832,
+13472539305,
+13962122185,
+15961250331,
+18030826210,
+18962187397,
+13917698740,
+13872595057,
+13942540999,
+18913265721,
+18930414017,
+15821175049,
+18942609188,
+15990145505,
+18547775815,
+15013816658,
+15205782375,
+13655668894
+        )
+    </select>
+    <select id="getAcOrderss" resultType="com.example.demo.entity.MallAcOrder">
+        select t1.id, t1.user_id userId, t2.`phone`, t2.`name` from m_mall_item.mall_ac_order t1, mall_user t2
+         where
+           t1.user_id = t2.id and t1.trade_no is null and t1.id not in (
+1019674277159088128,
+1019696654292160512,
+1019698166699462656,
+1019698824139837440,
+1019698988703354880,
+1019699416128098304,
+1019699649745276928,
+1019699650789658624,
+1019700130665533440,
+1019700973703860224,
+1019701155563327488,
+1019701345783402496,
+1019693397636042752,
+1019695129992646656,
+1019697513830879232,
+1019697926410620928,
+1019697966295617536,
+1019697970112434176,
+1019698108092452864,
+1019698134708146176,
+1019698235246972928,
+1019698357024395264,
+1019698357179584512,
+1019698373466066944,
+1019698403375648768,
+1019698610602266624,
+1019698682148704256,
+1019698714714640384,
+1019698758669586432,
+1019698771446796288,
+1019698804312002560,
+1019699035594313728,
+1019699375325908992,
+1019699425565282304,
+1019699580075053056,
+1019699649745276928,
+1019699650789658624,
+1019699769988943872,
+1019699875956674560,
+1019699898777882624,
+1019699951470923776,
+1019700100680454144,
+1019700130665533440,
+1019700244243091456,
+1019700265202028544,
+1019700269118148608,
+1019700358831476736,
+1019700413705555968,
+1019700485377822720,
+1019700497839099904,
+1019700513727123456,
+1019700543234052096,
+1019700608697389056,
+1019700619935289344,
+1019700648737574912,
+1019701059443822592,
+1019701157519233024,
+1019701185653264384,
+1019701348224487424,
+1019701378687717376,
+1019701392969322496,
+1019701484757471232,
+1019701703058411520,
+1019701724308115456,
+1019701817055399936,
+1019701905492299776,
+1019701978049564672,
+1019702029447925760,
+1019713298355261440
+)
+    </select>
+</mapper>

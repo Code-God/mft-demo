@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.MallOrderInfoMapper">
+
+    <!-- 开启二级缓存 -->
+
+
+<!--    &lt;!&ndash; 通用查询映射结果 &ndash;&gt;-->
+<!--    <resultMap id="BaseResultMap" type="com.meifute.core.entity.MallOrderInfo">-->
+<!--        <id column="order_id" property="orderId"/>-->
+<!--        <result column="mall_user_id" property="mallUserId"/>-->
+<!--        <result column="payment_amt" property="paymentAmt"/>-->
+<!--        <result column="credit" property="credit"/>-->
+<!--        <result column="origin_amt" property="originAmt"/>-->
+<!--        <result column="post_fee_amt" property="postFeeAmt"/>-->
+<!--        <result column="discount_amt" property="discountAmt"/>-->
+<!--        <result column="currency" property="currency"/>-->
+<!--        <result column="addr_id" property="addrId"/>-->
+<!--        <result column="addr_name" property="addrName"/>-->
+<!--        <result column="addr_phone" property="addrPhone"/>-->
+<!--        <result column="order_type" property="orderType"/>-->
+<!--        <result column="order_review" property="orderReview"/>-->
+<!--        <result column="order_status" property="orderStatus"/>-->
+<!--        <result column="belongs_code" property="belongsCode"/>-->
+<!--        <result column="express_code" property="expressCode"/>-->
+<!--        <result column="express_company" property="expressCompany"/>-->
+<!--        <result column="leader_id" property="leaderId"/>-->
+<!--        <result column="proof_path" property="proofPath"/>-->
+<!--        <result column="buyer_memo" property="buyerMemo"/>-->
+<!--        <result column="cs_memo" property="csMemo"/>-->
+<!--        <result column="system_memo" property="systemMemo"/>-->
+<!--        <result column="create_date" property="createDate"/>-->
+<!--        <result column="update_date" property="updateDate"/>-->
+<!--        <result column="verify_end_date" property="verifyEndDate"/>-->
+<!--        <result column="pay_end_date" property="payEndDate"/>-->
+<!--        <result column="is_del" property="isDel"/>-->
+<!--        <result column="is_can_cancel" property="isCanCancel"/>-->
+<!--    </resultMap>-->
+
+    <select id="getOrderInfo" resultType="com.example.demo.entity.MallOrderInfo">
+        select order_id orderId, eclpsono eclpSoNo from mall_order_info where order_status = 4
+         and create_date BETWEEN '2020-01-25' and '2020-01-30'
+         and cs_memo is null
+        order by create_date desc
+    </select>
+
+    <select id="getOrderInfoJd" resultType="com.example.demo.entity.MallOrderInfo">
+        select order_id orderId, eclpsono eclpSoNo from mall_order_info where order_status = 4
+         and cs_memo = '正在拦截京东出库订单'
+        order by create_date desc
+    </select>
+
+    <select id="getNotDervier" resultType="com.example.demo.entity.MallOrderInfo">
+        select order_id orderId from mall_order_info where order_status = 3
+        and create_date BETWEEN '2020-01-24 09:00:00' and '2020-01-25' order by create_date desc
+    </select>
+
+    <select id="getNoPayInfoOrder" resultType="com.example.demo.entity.MallOrderInfo">
+        select order_id orderId,order_status orderStatus, order_type OrderType,mall_user_id mallUserId,
+        create_date createDate, payment_amt paymentAmt,transaction_id transactionId, trade_no tradeNo
+        from m_mall_order.mall_order_info where
+        order_id not in (select order_id from m_mall_pay.mall_pay_info where create_date > '2020-02-06' and create_date &lt; '2020-02-07 23:00:00')
+        and create_date > '2020-02-06' and create_date &lt; '2020-02-07 23:00:00'
+    </select>
+
+    <select id="getMallSku" resultType="com.example.demo.entity.MallSku">
+        select sku_code skuCode, retail_price retailPrice from m_mall_item.mall_sku where is_del = '0' and belongs_code = '0'
+    </select>
+
+
+    <select id="getOrderInfo1" resultType="com.example.demo.entity.MallOrderInfo">
+        select order_id orderId, eclpsono eclpSoNo from mall_order_info where order_status = 4
+         and create_date BETWEEN '2019-01-01' and '2020-05-14'
+         and cs_memo is null
+        order by create_date desc
+    </select>
+
+<!--    <select id="insertPayInfo" parameterType="" resultType="java.lang.Integer">-->
+
+<!--    </select>-->
+
+</mapper>
